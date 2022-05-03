@@ -1,0 +1,13 @@
+#editnote{
+    animation: ani 1s  1 ;
+    overflow: hidden;
+}
+@keyframes ani {
+    from{
+        height: 0;
+    }
+    to{
+        height: 67vh;
+    }
+    
+}
