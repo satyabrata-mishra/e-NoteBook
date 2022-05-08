@@ -30,7 +30,7 @@ router.post('/signup', async (req, res) => {
             });
 
             const token = jsonwebtoken.sign({ userid: user._id }, process.env.jwt_secret);
-            res.status(200).json({ token });
+            res.status(200).json({ "token":token, "name":user.name });
         }
     } catch (error) {
         res.status(400).send(error.message);
@@ -55,7 +55,7 @@ router.post('/login', async (req, res) => {
                 }
                 else {
                     const token = jsonwebtoken.sign({ userid: user._id }, process.env.jwt_secret);
-                    res.json({token});
+                    res.json({ "token":token, "name":user.name });
                 }
             }
         }
@@ -68,7 +68,7 @@ router.post('/login', async (req, res) => {
 router.post('/getuser', fetchuser, async (req, res) => {
     try {
         const userid = req.user;
-        const user = await User.findOne({_id:userid}).select("-password");
+        const user = await User.findOne({ _id: userid }).select("-password");
         res.status(200).json(user);
     } catch (error) {
         res.status(400).send(error.message);

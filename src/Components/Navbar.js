@@ -25,10 +25,11 @@ export default function Navbar(props) {
                                 <Link className={`nav-link ${location.pathname === "/about" ? "active" : ""}`} to="/about">About</Link>
                             </li>
                         </ul>
+                        {localStorage.getItem("token") &&
+                            <p style={{color:"white"}} className="font-weight-bold mx-3 my-2">{`Hi, ${localStorage.getItem("name")}`}</p>}
                         {localStorage.getItem("token") ?
                             <button onClick={handleLogout} className='btn btn-primary'>Logout</button> :
                             <form className="d-flex">
-                                {/* <Link className="btn btn-primary mx-2" to='/login' role="button">Login</Link> */}
                                 <Link className="btn btn-primary mx-2" to='/signup' role="button">Signup</Link>
                             </form>}
                     </div>

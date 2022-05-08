@@ -12,7 +12,7 @@ router.post('/addnote', fetchuser, async (req, res) => {
         try {
             const { title, description, tag } = req.body;
             const note = await Notes.create({
-                user: req.user,
+                user: req.user.userid,
                 title: title,
                 description: description,
                 tag: tag
@@ -27,7 +27,7 @@ router.post('/addnote', fetchuser, async (req, res) => {
 // Read All Note
 router.get('/fetchallnotes', fetchuser, async (req, res) => {
     try {
-        const notes = await Notes.find({ user: req.user });
+        const notes = await Notes.find({ user: req.user.userid });
         res.status(200).json(notes);
     } catch (error) {
         res.status(400).send(error.message);
@@ -38,7 +38,7 @@ router.get('/fetchallnotes', fetchuser, async (req, res) => {
 // Update a Note
 router.patch('/updatenote/:id', fetchuser, async (req, res) => {
     try {
-        const note = await Notes.findOneAndUpdate({ _id: req.params.id, user: req.user }, req.body, { new: true, runValidators: true });
+        const note = await Notes.findOneAndUpdate({ _id: req.params.id, user: req.user.userid }, req.body, { new: true, runValidators: true });
         if (!note) {
             res.status(400).send("Some Internal Error Occured!!!");
         }
@@ -54,7 +54,7 @@ router.patch('/updatenote/:id', fetchuser, async (req, res) => {
 // Delete a Note
 router.delete('/deletenote/:id', fetchuser, async (req, res) => {
     try {
-        const note = await Notes.findOneAndDelete({ _id: req.params.id, user: req.user });
+        const note = await Notes.findOneAndDelete({ _id: req.params.id, user: req.user.userid });
         if (!note) {
             res.status(400).send("Some Internal Error Occured!!!");
         }

@@ -25,12 +25,13 @@ export default function Signup(props) {
         else {
           const json = await response.json();
           localStorage.setItem("token", json.token);
+          localStorage.setItem("name", json.name);
           navigate("/");
           props.showAlert("Account Created Successfully.", "success");
         }
       });
     }
-    else{
+    else {
       props.showAlert("Please verify your password again.", "danger");
     }
   }

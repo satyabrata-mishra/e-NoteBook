@@ -10,8 +10,7 @@ const fetchuser= (req,res,next)=>{
     else{
         try {
             const data=jwt.verify(token,process.env.jwt_secret);
-            req.user=data.userid;
-            // console.log(data);
+            req.user=data;
             next();   
         } catch (error) {
             res.status(400).send(error.message);

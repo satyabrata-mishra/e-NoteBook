@@ -23,7 +23,8 @@ export default function Login(props) {
             }
             else {
                 const json = await response.json();
-                localStorage.setItem("token",json.token);
+                localStorage.setItem("token", json.token);
+                localStorage.setItem("name", json.name);
                 navigate("/");
                 props.showAlert("Logged In Successfully.", "success");
             }
